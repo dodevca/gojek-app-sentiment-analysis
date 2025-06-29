@@ -38,21 +38,26 @@ def preprocess_text(text):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    prediction = None
+    prediction    = None
     probabilities = None
-    text = ""
+    raw_text      = ""
 
     if request.method == "POST":
         raw_text      = request.form["text"]
-        clean         = preprocess_text(raw_text)
-        X_feat        = tfidf_transformer.transform([clean])
+        text          = preprocess_text(raw_text)
+        X_feat        = tfidf_transformer.transform([text])
         proba         = model.predict_proba(X_feat)[0]
         classes       = model.classes_
         idx_max       = np.argmax(proba)
         prediction    = classes[idx_max]
         probabilities = {cls: f"{p*100:.2f}%" for cls, p in zip(classes, proba)}
 
-    return render_template("template/index.html", prediction=prediction, probabilities=probabilities, text=text)
+    sorted_probs = sorted(
+        probabilities.items(),
+        key=lambda x: float(x[1].rstrip('%')),
+        reverse=True
+    )
+    return render_template("index.html", prediction=prediction, probabilities=sorted_probs, text=raw_text)
 
 if __name__ == "__main__":
     app.run(debug=True)

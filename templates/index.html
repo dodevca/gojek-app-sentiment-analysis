@@ -16,7 +16,7 @@
                 <form class="mt-4" method="POST">
                     <div class="mb-3">
                         <label for="sentiment-input" class="form-label">Masukkan Teks</label>
-                        <textarea class="form-control" id="sentiment-input" placeholder="Masukkan teks untuk dianalisa" rows="2">{{ text }}</textarea>
+                        <textarea class="form-control" id="sentiment-input" name="text" placeholder="Masukkan teks untuk dianalisa" rows="2">{{ text }}</textarea>
                     </div>
                     <div class="d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn btn-primary">Analisa Teks</button>
@@ -27,12 +27,19 @@
         {% if prediction %}
             <div class="card mx-auto mt-4" style="max-width: 640px;">
                 <div class="card-body">
-                    <div class="alert alert-success text-center">
+                    <div class="alert 
+                        {% if prediction == 'positif' %}alert-success
+                        {% elif prediction == 'negatif' %}alert-danger
+                        {% elif prediction == 'netral'  %}alert-warning
+                        {% else %}alert-info
+                        {% endif %} text-center"
+                    >
                         <h3 class="h5 mb-0">{{ prediction }}</h3>
                     </div>
                     <ul class="list-group rounded-0">
-                        {% for label, prob in probabilities.items() %}
-                        <li class="list-group-item d-flex align-items-center justify-content-between gap-3 border-0 border-bottom">{{ label }}<span class="badge text-bg-info">{{ prob }}%</span></li>
+                        {% for label, prob in probabilities %}
+                            <li class="list-group-item d-flex align-items-center justify-content-between gap-3 border-0 border-bottom">{{ label }}<span class="badge text-info">{{ prob }}%</span></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
