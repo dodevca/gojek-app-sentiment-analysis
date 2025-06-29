@@ -52,7 +52,7 @@ def index():
         prediction    = classes[idx_max]
         probabilities = {cls: f"{p*100:.2f}%" for cls, p in zip(classes, proba)}
 
-    return render_template("index.html", prediction=prediction, probabilities=probabilities, text=text)
+    return render_template("template/index.html", prediction=prediction, probabilities=probabilities, text=text)
 
 if __name__ == "__main__":
     app.run(debug=True)
