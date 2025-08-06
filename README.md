@@ -48,10 +48,10 @@ You can access the deployed web application at:
 6. Open your browser and go to `http://localhost:5000`.
 
 ## Future Improvements
-- Integrate more advanced models (BERT, LSTM) for enhanced prediction accuracy.
-- Add real-time review fetching using Google Play API/Scraper.
-- Expand dataset to include version-wise sentiment comparison.
-- Deploy as a scalable microservice API for sentiment analysis.
+- [ ] Integrate more advanced models (BERT, LSTM) for enhanced prediction accuracy.
+- [ ] Add real-time review fetching using Google Play API/Scraper.
+- [ ] Expand dataset to include version-wise sentiment comparison.
+- [ ] Deploy as a scalable microservice API for sentiment analysis.
 
 ## Contributors
 This project is collaboratively developed by:
