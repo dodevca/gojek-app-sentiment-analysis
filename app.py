@@ -40,6 +40,7 @@ def preprocess_text(text):
 def index():
     prediction    = None
     probabilities = None
+    sorted_probs  = None
     raw_text      = ""
 
     if request.method == "POST":
@@ -52,11 +53,12 @@ def index():
         prediction    = classes[idx_max]
         probabilities = {cls: f"{p*100:.2f}%" for cls, p in zip(classes, proba)}
 
-    sorted_probs = sorted(
-        probabilities.items(),
-        key=lambda x: float(x[1].rstrip('%')),
-        reverse=True
-    )
+        sorted_probs = sorted(
+            probabilities.items(),
+            key=lambda x: float(x[1].rstrip('%')),
+            reverse=True
+        )
+
     return render_template("index.html", prediction=prediction, probabilities=sorted_probs, text=raw_text)
 
 if __name__ == "__main__":
